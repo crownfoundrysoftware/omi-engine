@@ -1,0 +1,42 @@
+name: Build OMI Engine
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compute BUILD_ID
+        run: |
+          BUILD_ID="CF-OMI-$(date +'%Y.%m.%d')-${GITHUB_SHA::7}"
+          echo "BUILD_ID=$BUILD_ID" >> $GITHUB_ENV
+          echo "Computed BUILD_ID=$BUILD_ID"
+
+      - name: Inject BUILD_ID into HTML
+        run: |
+          echo "Injecting BUILD_ID=$BUILD_ID"
+          # index.html is required
+          sed -i "s/__BUILD_ID__/$BUILD_ID/g" public/index.html
+
+          # pitch.html is optional (only if you have it)
+          if [ -f public/pitch.html ]; then
+            sed -i "s/__BUILD_ID__/$BUILD_ID/g" public/pitch.html
+          fi
+
+          echo "---- Confirm injection ----"
+          grep -n 'meta name="build-id"' -n public/index.html || true
+          if [ -f public/pitch.html ]; then
+            grep -n 'meta name="build-id"' -n public/pitch.html || true
+          fi
+
+      - name: Upload build artifact (for verification)
+        uses: actions/upload-artifact@v4
+        with:
+          name: omi-build-${{ env.BUILD_ID }}
+          path: public
