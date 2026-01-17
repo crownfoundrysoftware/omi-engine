@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Build injected at deploy time -->
+  <meta name="build-id" content="__BUILD_ID__" />
+
+  <title>120-Day Owner Move-In Notice — Sacramento</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body data-jurisdiction="CA-SACRAMENTO">
+  <main>
+    <h1>120-Day Owner Move-In Notice (Sacramento)</h1>
+
+    <!-- Compliance meta (screen + print safe, non-interactive) -->
+    <div class="complianceMeta">
+      <span class="badge" id="jurBadge"></span>
+      <span class="tagline">Built for compliance.</span>
+      <span class="buildMeta" id="buildMeta"></span>
+    </div>
+
+    <form id="noticeForm" novalidate>
+      <label>
+        Service Date
+        <input type="date" name="serviceDate" required />
+      </label>
+
+      <label>
+        Intended Occupancy Date
+        <input type="date" name="occupancyDate" required />
+      </label>
+
+      <label>
+        Delivery Method
+        <select name="deliveryMethod" required>
+          <option value="PERSONAL">Personal Service</option>
+          <option value="MAIL">Mail</option>
+          <option value="POSTING_MAIL">Posting + Mail</option>
+        </select>
+      </label>
+
+      <label>
+        Owner is a Natural Person
+        <select name="ownerIsNaturalPerson" required>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </label>
+
+      <label>
+        Ownership Percentage
+        <input
+          type="number"
+          name="ownershipPercent"
+          min="0"
+          max="100"
+          required
+        />
+      </label>
+
+      <button type="submit">Generate Notice</button>
+    </form>
+
+    <!-- Static disclaimer -->
+    <p class="disclaimer">
+      This notice is generated based on current Sacramento and California law.
+      Verify facts before service.
+    </p>
+
+    <section id="result" aria-live="polite"></section>
+
+    <!-- Print footer (checksum + provenance) -->
+    <footer
+      class="print-footer"
+      id="printFooter"
+      aria-hidden="true"
+      style="display:none;"
+    >
+      <div class="print-footer__row">
+        <div>Generated: <span id="pfGenerated"></span></div>
+        <div>Build: <span id="pfBuild"></span></div>
+        <div>Case Hash (SHA-256): <code id="pfHash"></code></div>
+      </div>
+    </footer>
+
+    <button
+      id="printBtn"
+      type="button"
+      style="display:none;"
+    >
+      Print / Save as PDF
+    </button>
+  </main>
+  <div class="print-watermark" aria-hidden="true">
+  Verified Build <span id="wmBuild"></span>
+</div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

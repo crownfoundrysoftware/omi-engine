@@ -1,0 +1,25 @@
+name: Build OMI Engine
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Pull repository code
+      - uses: actions/checkout@v4
+
+      # 2️⃣ Generate BUILD_ID and inject into index.html
+      - name: Inject BUILD_ID
+        run: |
+          BUILD_ID="CF-OMI-$(date +'%Y.%m.%d')-${GITHUB_SHA::7}"
+          echo "BUILD_ID=$BUILD_ID" >> $GITHUB_ENV
+          sed -i "s/__BUILD_ID__/$BUILD_ID/g" public/index.html
+
+      # 3️⃣ Build / Deploy (placeholder for now)
+      - name: Deploy
+        run: |
+          echo "Build complete with BUILD_ID=$BUILD_ID"

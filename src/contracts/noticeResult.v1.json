@@ -1,0 +1,23 @@
+{
+  "version": "v1",
+  "endpoint": "POST /v1/notice/compute",
+  "resultShape": {
+    "jurisdictionId": "string",
+    "noticeType": "string",
+    "serviceDate": "YYYY-MM-DD",
+    "occupancyDate": "YYYY-MM-DD",
+    "deliveryMethod": "PERSONAL|MAIL|POSTING_MAIL",
+    "ownerIsNaturalPerson": "boolean",
+    "ownershipPercent": "number",
+    "noticePeriodDays": "number",
+    "effectiveServiceDate": "YYYY-MM-DD|null",
+    "earliestTerminationDate": "YYYY-MM-DD|null",
+    "requiredClauses": "array",
+    "eligibility": {
+      "eligible": "boolean",
+      "reasons": "array"
+    },
+    "audit": "array",
+    "citations": "array"
+  }
+}
